@@ -191,4 +191,6 @@ MacDown/Resources/Prism/*
 env/
 venv/
 
+# Aider
 .aider*
+

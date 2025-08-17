@@ -55,7 +55,8 @@ def archive_dir(zip_f, directory):
 def parse_args(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('path_to_pem', help='path to .pem private key')
-    parser.add_argument('-d', '--destination', default='platform=macOS,arch=arm64', help='specify platform and arch')
+    parser.add_argument('-d', '--destination',
+        default='platform=macOS,arch=arm64', help='specify platform and arch')
     return parser.parse_args(argv)
 
 
@@ -92,8 +93,8 @@ def main(argv):
         XCODEBUILD, 'archive',
         '-workspace', '../MacDown.xcworkspace',
         '-scheme', 'MacDown',
-        '-destination', destination,           # e.g. "platform=macOS,arch=arm64"
-        '-archivePath', archive_path,          # <-- key change
+        '-destination', destination,
+        '-archivePath', archive_path,
     )
 
     if isinstance(output, bytes):

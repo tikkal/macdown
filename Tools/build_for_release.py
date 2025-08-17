@@ -55,12 +55,14 @@ def archive_dir(zip_f, directory):
 def parse_args(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('path_to_pem', help='path to .pem private key')
+    parser.add_argument('-d', '--destination', default='platform=macOS,arch=arm64', help='specify platform and arch')
     return parser.parse_args(argv)
 
 
 def main(argv):
     options = parse_args(argv)
     cert_path = options.path_to_pem
+    destination = options.destination
 
     print('Pre-build cleaning...')
     if os.path.exists(BUILD_DIR):
@@ -72,7 +74,7 @@ def main(argv):
         os.mkdir(BUILD_DIR)
     execute(
         XCODEBUILD, 'clean', '-workspace', 'MacDown.xcworkspace',
-        '-scheme', 'MacDown',
+        '-scheme', 'MacDown', '-destination', destination
     )
 
     print('Running external scripts...')
@@ -81,18 +83,21 @@ def main(argv):
 
     print('Building application archive...')
     os.chdir(BUILD_DIR)
+
+    # Pick a deterministic path so we don't need to parse xcodebuild output.
+    archive_path = os.path.abspath(os.path.join(BUILD_DIR, 'MacDown.xcarchive'))
+    os.makedirs(os.path.dirname(archive_path), exist_ok=True)
+
     output = execute(
-        XCODEBUILD, 'archive', '-workspace', '../MacDown.xcworkspace',
+        XCODEBUILD, 'archive',
+        '-workspace', '../MacDown.xcworkspace',
         '-scheme', 'MacDown',
+        '-destination', destination,           # e.g. "platform=macOS,arch=arm64"
+        '-archivePath', archive_path,          # <-- key change
     )
+
     if isinstance(output, bytes):
         output = output.decode(TERM_ENCODING)
-    match = re.search(
-        r'^\s*ARCHIVE_PATH: (.+)$',
-        output,
-        re.MULTILINE,
-    )
-    archive_path = match.group(1)
 
     print('Exporting application bundle...')
     source_app_path = os.path.join(

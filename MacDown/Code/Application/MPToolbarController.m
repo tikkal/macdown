@@ -125,48 +125,42 @@ static CGFloat itemWidth = 37;
 #pragma mark - NSToolbarDelegate
 - (NSArray<NSString *> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
 {
-    // From toolbar item dictionary(setupToolbarItems)
-    //NSArray *orderedToolbarItemIdentifiers = [self orderedToolbarDefaultItemKeysForDictionary:self->toolbarItems];
     NSArray *orderedToolbarItemIdentifiers = [self toolbarItemIdentifiersFromItemsArray:self->toolbarItems];
-    
-    // Mixed identifiers from dictionary and space at below specified indices
+
     NSMutableArray *defaultItemIdentifiers = [NSMutableArray new];
-    
-    // Add space after the specified toolbar item indices
-    int spaceAfterIndices[] = {}; // No space in the default set
-    int flexibleSpaceAfterIndices[] = {2, 3, 5, 7, 11};
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    
+
+    // Use sentinels to avoid out-of-bounds reads
+    static const int spaceAfterIndices[]        = { INT_MAX };                 // none
+    static const int flexibleSpaceAfterIndices[] = { 2, 3, 5, 7, 11, INT_MAX }; // note the INT_MAX at the end
+
+    int i = 0, j = 0, k = 0;
+
     for (NSString *itemIdentifier in orderedToolbarItemIdentifiers)
     {
-        // exclude some toolbar items from the default toolbar
-        if ([itemIdentifier  isEqual: @"comment"]
-            || [itemIdentifier  isEqual: @"highlight"]
-            || [itemIdentifier  isEqual: @"strikethrough"]) {
-            // do nothing here
-        }else {
+        if (itemIdentifier.length &&
+            ![itemIdentifier isEqual:@"comment"] &&
+            ![itemIdentifier isEqual:@"highlight"] &&
+            ![itemIdentifier isEqual:@"strikethrough"])
+        {
             [defaultItemIdentifiers addObject:itemIdentifier];
         }
-        
-        if (i == spaceAfterIndices[j])
-        {
+
+        if (i == spaceAfterIndices[j]) {
             [defaultItemIdentifiers addObject:NSToolbarSpaceItemIdentifier];
             j++;
         }
-        
-        if (i == flexibleSpaceAfterIndices[k])
-        {
+        if (i == flexibleSpaceAfterIndices[k]) {
             [defaultItemIdentifiers addObject:NSToolbarFlexibleSpaceItemIdentifier];
             k++;
         }
-        
         i++;
     }
-    
+
     return [defaultItemIdentifiers copy];
 }
+
+
+
 
 - (NSArray<NSString *> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {

@@ -55,12 +55,14 @@ def archive_dir(zip_f, directory):
 def parse_args(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('path_to_pem', help='path to .pem private key')
+    parser.add_argument('-d', '--destination', default='platform=macOS,arch=arm64', help='specify platform and arch')
     return parser.parse_args(argv)
 
 
 def main(argv):
     options = parse_args(argv)
     cert_path = options.path_to_pem
+    destination = options.destination
 
     print('Pre-build cleaning...')
     if os.path.exists(BUILD_DIR):
@@ -72,7 +74,7 @@ def main(argv):
         os.mkdir(BUILD_DIR)
     execute(
         XCODEBUILD, 'clean', '-workspace', 'MacDown.xcworkspace',
-        '-scheme', 'MacDown',
+        '-scheme', 'MacDown', '-destination', destination
     )
 
     print('Running external scripts...')
@@ -83,7 +85,7 @@ def main(argv):
     os.chdir(BUILD_DIR)
     output = execute(
         XCODEBUILD, 'archive', '-workspace', '../MacDown.xcworkspace',
-        '-scheme', 'MacDown',
+        '-scheme', 'MacDown', '-destination', destination
     )
     if isinstance(output, bytes):
         output = output.decode(TERM_ENCODING)

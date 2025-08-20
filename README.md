@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/MacDownApp/macdown.svg?branch=master)](https://travis-ci.org/MacDownApp/macdown)
 
 
-MacDown is an open source Markdown editor for OS X, released under the MIT License. The author stole the idea from [Chen Luo](https://twitter.com/chenluois)’s [Mou](http://mouapp.com) so that people can make crappy clones.
+MacDown is an open source Markdown editor for OS X, released under the MIT License. The author was inspired by [Chen Luo](https://twitter.com/chenluois)’s [Mou](http://mouapp.com).
 
 Visit the [project site](http://macdown.uranusjr.com/) for more information, or download [MacDown.app.zip](http://macdown.uranusjr.com/download/latest/) directly from the [latest releases](https://github.com/MacDownApp/macdown/releases/latest) page.
 

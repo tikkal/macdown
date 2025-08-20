@@ -1,13 +1,13 @@
+
 # MacDown
-
-[![](https://img.shields.io/github/release/MacDownApp/macdown.svg)](http://macdown.uranusjr.com/download/latest/)
-![Total downloads](https://img.shields.io/github/downloads/MacDownApp/macdown/latest/total.svg)
-[![Build Status](https://travis-ci.org/MacDownApp/macdown.svg?branch=master)](https://travis-ci.org/MacDownApp/macdown)
-
+This is a port of Macdown for Mac Silicon (arm64). The upstream repo is for x86 which Apple plans to sunset by 2026 or so.
 
 MacDown is an open source Markdown editor for OS X, released under the MIT License. The author was inspired by [Chen Luo](https://twitter.com/chenluois)’s [Mou](http://mouapp.com).
 
-Visit the [project site](http://macdown.uranusjr.com/) for more information, or download [MacDown.app.zip](http://macdown.uranusjr.com/download/latest/) directly from the [latest releases](https://github.com/MacDownApp/macdown/releases/latest) page.
+For Mac Silicon (arm64), the [latest releases are here](https://github.com/tikkal/macdown-arm64/releases). 
+
+For x86 builds, visit the [project site](http://macdown.uranusjr.com/) for more information, or download [MacDown.app.zip](http://macdown.uranusjr.com/download/latest/) directly from the [latest releases](https://github.com/MacDownApp/macdown/releases/latest) page. 
+
 
 ## Install
 

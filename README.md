@@ -6,7 +6,7 @@ MacDown is an open source Markdown editor for OS X, released under the MIT Licen
 
 For Mac Silicon (arm64), the [latest releases are here](https://github.com/tikkal/macdown-arm64/releases). 
 
-For x86 builds, visit the [project site](http://macdown.uranusjr.com/) for more information, or download [MacDown.app.zip](http://macdown.uranusjr.com/download/latest/) directly from the [latest releases](https://github.com/MacDownApp/macdown/releases/latest) page. 
+For x86 builds, visit the [project site](http://macdown.uranusjr.com/) for more information.
 
 
 ## Install
